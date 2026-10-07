@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urologic Oncology Pathways</title>
+  <style>
+    :root {
+      --blue: #4D104A;
+      --blue-light: #2563a8;
+      --blue-pale: #dbeafe;
+      --teal: #0e7490;
+      --teal-pale: #cffafe;
+      --green: #166534;
+      --green-pale: #dcfce7;
+      --purple: #5b21b6;
+      --purple-pale: #ede9fe;
+      --orange: #92400e;
+      --orange-pale: #fef3c7;
+      --red: #991b1b;
+      --red-pale: #fee2e2;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-400: #9ca3af;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --border: #d1d5db;
+      --radius: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-800);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, #2e0a2c 0%, #4D104A 60%, #6e1769 100%);
+      color: white;
+      padding: 28px 24px 20px;
+      text-align: center;
+      position: relative;
+    }
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+    header p {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      letter-spacing: 0.5px;
+    }
+    .share-btn {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 6px;
+      transition: background 0.2s;
+    }
+    .share-btn:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── CANCER TABS ── */
+    .cancer-tabs {
+      display: flex;
+      background: #2e0a2c;
+      border-bottom: 3px solid var(--blue);
+      overflow-x: auto;
+    }
+    .cancer-tab {
+      padding: 12px 28px;
+      color: rgba(255,255,255,0.65);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -3px;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .cancer-tab:hover { color: white; background: rgba(255,255,255,0.05); }
+    .cancer-tab.active {
+      color: white;
+      border-bottom-color: #60a5fa;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ── SEARCH ── */
+    .search-bar {
+      padding: 14px 20px;
+      background: white;
+      border-bottom: 1px solid var(--border);
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 9px 14px 9px 38px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      background: var(--gray-50);
+      outline: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%239ca3af' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85zm-5.242 1.156a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 12px center;
+    }
+    .search-bar input:focus { border-color: var(--blue-light); box-shadow: 0 0 0 3px rgba(37,99,168,0.1); }
+
+    /* ── LAYOUT ── */
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 160px);
+    }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: 240px;
+      min-width: 240px;
+      background: white;
+      border-right: 1px solid var(--border);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      height: calc(100vh - 160px);
+      overflow-y: auto;
+    }
+    .sidebar-label {
+      padding: 6px 16px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-400);
+    }
+    .sidebar-link {
+      display: block;
+      padding: 8px 16px;
+      color: var(--gray-700);
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all 0.15s;
+    }
+    .sidebar-link:hover { background: var(--gray-50); color: var(--blue); }
+    .sidebar-link.active {
+      background: var(--blue-pale);
+      color: var(--blue);
+      border-left-color: var(--blue);
+      font-weight: 600;
+    }
+
+    /* ── MAIN CONTENT ── */
+    main {
+      flex: 1;
+      padding: 24px;
+      max-width: 900px;
+    }
+
+    /* Cancer panel visibility */
+    .cancer-panel { display: none; }
+    .cancer-panel.active { display: block; }
+
+    /* ── SECTION CARDS ── */
+    .pathway-section {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .section-header {
+      padding: 14px 20px;
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .section-header .icon { font-size: 1.1rem; }
+    .section-header .chevron {
+      margin-left: auto;
+      font-size: 0.8rem;
+      transition: transform 0.2s;
+      color: var(--gray-400);
+    }
+    .pathway-section.collapsed .section-header .chevron { transform: rotate(-90deg); }
+    .section-body {
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--border);
+    }
+    .pathway-section.collapsed .section-body { display: none; }
+
+    /* section header colors */
+    .header-blue  { background: var(--blue-pale);  color: var(--blue); }
+    .header-teal  { background: var(--teal-pale);  color: var(--teal); }
+    .header-green { background: var(--green-pale); color: var(--green); }
+    .header-purple{ background: var(--purple-pale);color: var(--purple); }
+    .header-orange{ background: var(--orange-pale);color: var(--orange); }
+    .header-red   { background: var(--red-pale);   color: var(--red); }
+
+    /* ── TYPOGRAPHY ── */
+    .section-body h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin: 18px 0 8px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .section-body h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gray-700);
+      margin: 14px 0 6px;
+    }
+    .section-body p { margin: 8px 0; font-size: 0.875rem; color: var(--gray-700); }
+    .section-body ul { padding-left: 20px; margin: 6px 0; }
+    .section-body li { margin: 4px 0; font-size: 0.875rem; color: var(--gray-700); }
+    .section-body strong { color: var(--gray-900); }
+    .section-body a { color: var(--blue-light); text-decoration: none; }
+    .section-body a:hover { text-decoration: underline; }
+
+    /* ── CALLOUT BOXES ── */
+    .callout {
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 12px 0;
+      font-size: 0.85rem;
+    }
+    .callout-warning { background: var(--orange-pale); border-left: 4px solid #d97706; color: var(--orange); }
+    .callout-info    { background: var(--blue-pale);   border-left: 4px solid var(--blue-light); color: var(--blue); }
+    .callout-tip     { background: var(--green-pale);  border-left: 4px solid #16a34a; color: var(--green); }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x: auto; margin: 12px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th {
+      background: var(--gray-100);
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--gray-700);
+      border: 1px solid var(--border);
+    }
+    td {
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      color: var(--gray-700);
+    }
+    tr:nth-child(even) td { background: var(--gray-50); }
+    .check { color: #16a34a; font-weight: 700; text-align: center; }
+
+    /* ── SUBSECTION (drug cards, etc.) ── */
+    .drug-card {
+      background: var(--gray-50);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 12px 0;
+    }
+    .drug-card h4 { margin-top: 0; color: var(--blue); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #4D104A;
+      color: var(--gray-400);
+      text-align: center;
+      padding: 18px;
+      font-size: 0.8rem;
+    }
+
+    /* ── MODAL (share) ── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: white;
+      border-radius: 12px;
+      padding: 28px;
+      max-width: 340px;
+      width: 90%;
+      text-align: center;
+    }
+    .modal h3 { font-size: 1.1rem; margin-bottom: 12px; }
+    .modal p { font-size: 0.85rem; color: var(--gray-600); margin-bottom: 20px; }
+    .modal-close {
+      display: block; width: 100%;
+      padding: 10px;
+      background: var(--blue);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-top: 14px;
+    }
+
+    /* ── NO RESULTS ── */
+    .no-results { display: none; padding: 40px; text-align: center; color: var(--gray-400); font-size: 0.9rem; }
+
+    /* TP Biopsy callout box styles matching original document colors */
+    .callout-doc {
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 12px 0;
+      font-size: 0.875rem;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+    }
+    .callout-doc ul { padding-left: 20px; margin: 6px 0; }
+    .callout-doc li { margin: 4px 0; color: #1A1A1A; }
+    .callout-doc p { margin: 4px 0; color: #1A1A1A; }
+    .callout-doc-title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .callout-doc-blue   { border-left: 4px solid #003087; background: #f0f4ff; }
+    .callout-doc-blue   .callout-doc-title { color: #003087; }
+    .callout-doc-red    { border-left: 4px solid #C0392B; background: #fff5f5; }
+    .callout-doc-red    .callout-doc-title { color: #C0392B; }
+    .callout-doc-gold   { border-left: 4px solid #8B6914; background: #fffbf0; }
+    .callout-doc-gold   .callout-doc-title { color: #8B6914; }
+    .callout-doc-green  { border-left: 4px solid #1A7A4A; background: #f0fff6; }
+    .callout-doc-green  .callout-doc-title { color: #1A7A4A; }
+
+    @media (max-width: 700px) {
+      aside { display: none; }
+      .share-btn { position: static; margin: 10px auto 0; display: inline-flex; }
+      header { padding-bottom: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <button class="share-btn" onclick="openShare()">
+    ↑ Share
+  </button>
+  <h1>Urologic Oncology Pathways</h1>
+  <p>UPMC · Division of Urologic Oncology · Dept. of Urology</p>
+</header>
+
+<!-- CANCER TABS -->
+<nav class="cancer-tabs" id="cancerTabs">
+  <div class="cancer-tab active" data-cancer="bladder">Bladder Cancer</div>
+  <div class="cancer-tab" data-cancer="prostate">Prostate Cancer</div>
+  <div class="cancer-tab" data-cancer="kidney">Kidney Cancer</div>
+</nav>
+
+<!-- SEARCH -->
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="Search pathways…" oninput="handleSearch()" />
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-label">Pathways</div>
+    <!-- filled by JS -->
+  </aside>
+
+  <!-- MAIN -->
+  <main id="mainContent">
+
+    <!-- ═══════════════ BLADDER ═══════════════ -->
+    <div class="cancer-panel active" id="panel-bladder">
+
+      <!-- NMIBC -->
+      <div class="pathway-section" id="sec-nmibc">
+        <div class="section-header header-blue" onclick="toggleSection(this)">
+          <span class="icon">🔬</span> NMIBC Care Pathway
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+
+          <h3>Principles of TURBT</h3>
+          <ul>
+            <li>Obtain preoperative <strong>CTU</strong> prior to OR to determine need for ureteroscopy</li>
+            <li>Bilateral retrograde pyelograms for patients who cannot have CTU</li>
+            <li>No need for office cysto if tumor is obvious on imaging</li>
+            <li>Preop <strong>U/A with reflex urine culture</strong></li>
+            <li>If disease is possibly non-invasive, order peri-operative intravesical <strong>Gemcitabine</strong> with case request</li>
+            <li>Document <strong>exam under anesthesia</strong> (EUA dot phrase) with each initial resection or re-resection with concern for disease progression</li>
+            <li><strong>Re-resect if:</strong> known residual disease and bladder preservation desired; any high-grade disease without muscularis propria on pathology; any T1 tumors, even if muscularis propria is in the specimen</li>
+            <li>Peri-operative Gemcitabine preferably administered in OR for tumors thought to be non-invasive</li>
+          </ul>
+          <div class="callout callout-warning"><strong>Avoid</strong> peri-operative Gemcitabine if bladder perforation is suspected.</div>
+          <ul>
+            <li>For recurrent non-invasive disease, consider <strong>enhanced cystoscopy TURBT</strong> (i.e. Blue-Light). Order Cysview with case request.</li>
+            <li>Clinical SUO Fellows are the preferred surgeons for TURBT requests that come from outside of the UroOnc Division</li>
+            <li>Use a <strong>shared TURBT case model</strong> whenever possible to expedite surgical care and maximize OR utilization</li>
+          </ul>
+
+          <h3>Principles of Intravesical Therapy</h3>
+          <ul>
+            <li>Complete resection prior to initiating intravesical therapy</li>
+            <li>Treatments should begin <strong>2–4 weeks</strong> after resection</li>
+            <li><strong>High-risk</strong> (HG Ta &gt;3cm, HG T1, CIS): BCG 1st line; Gem/Doce 2nd line with 2yr maintenance; re-induction BCG 3rd line; Adstiladrin or Inlexzo for BCG-unresponsive CIS (see below); consider clinical trials</li>
+            <li><strong>Intermediate-risk</strong> (HG Ta &lt;3cm): BCG, Gem/Doce, or trial of surveillance alone</li>
+            <li>BCG dose reduction as needed per supply or tolerance; down to <strong>10% (5mg TICE)</strong> can still be effective</li>
+            <li>Maintenance BCG at <strong>3, 6, and 12 months</strong> from first induction dose. At least <strong>2 years of maintenance is ideal</strong>; can extend to 3 years at surgeon discretion if supply allows.</li>
+            <li><strong>Recurrent low-grade Ta:</strong> Induction + maintenance Gemcitabine monthly x 24mo (1st line); Mitomycin C (2nd line); BCG or Gem/Doce also options</li>
+          </ul>
+          <div class="callout callout-warning"><strong>BCG Shortage:</strong> Prioritize induction for HG T1 and CIS, plus continuation of initiated courses. 2 years of maintenance may not be possible with current shortage. Gem/Doce as alternative. <a href="https://forms.office.com/r/snqxrVEqX2" target="_blank">BCG Request Form for New Starts →</a></div>
+
+          <h4>BCG-Unresponsive CIS: Adstiladrin &amp; Inlexzo</h4>
+          <div class="callout callout-info"><strong>Important:</strong> Both agents are extremely expensive. Patients must meet <strong>FDA-approved criteria</strong>, which require the presence of <strong>CIS</strong> (with or without papillary tumors) and BCG-unresponsive disease. These are options for patients who refuse or are unfit for cystectomy. Both require approval from the Division Chief and can only be used at Shadyside at this time.</div>
+
+          <div class="drug-card">
+            <h4>Adstiladrin (nadofaragene firadenovec-vncg)</h4>
+            <ul>
+              <li>Non-replicating adenoviral vector gene therapy delivering interferon-α2b to the urothelium</li>
+              <li><strong>Schedule:</strong> 75 mL intravesical instillation <strong>every 3 months (quarterly)</strong></li>
+              <li>Continue as long as no evidence of high-grade recurrence or unacceptable toxicity</li>
+              <li>FDA approved Dec 2022 for BCG-unresponsive NMIBC with CIS ± papillary tumors</li>
+            </ul>
+          </div>
+          <div class="drug-card">
+            <h4>Inlexzo (gemcitabine intravesical system / TAR-200)</h4>
+            <ul>
+              <li>Intravesical drug-releasing system (iDRS) providing sustained local gemcitabine delivery over 3 weeks per cycle</li>
+              <li><strong>Induction:</strong> Inserted every 3 weeks for 6 months (up to 8 doses)</li>
+              <li><strong>Maintenance:</strong> Every 12 weeks for up to 18 months (up to 6 doses)</li>
+              <li>Total treatment duration up to ~2 years (up to 14 cycles)</li>
+              <li>Placed in-office via urinary catheter without general anesthesia; removed after 3-week indwelling period</li>
+              <li>FDA approved Sep 2025 for BCG-unresponsive NMIBC with CIS ± papillary tumors</li>
+            </ul>
+          </div>
+
+          <h3>Surveillance for NMIBC</h3>
+          <ul>
+            <li><strong>U/A</strong> on arrival to clinic</li>
+            <li>Antibiotic prophylaxis not necessary; consider if reusable cystoscope or patient has history of UTI with surveillance cysto</li>
+            <li>Fellows follow patients they resect; patients continue with subsequent fellows</li>
+            <li>Patient's bladder cancer <strong>pathology history</strong> must be in every surveillance cysto note</li>
+            <li>Date, modality, and result of <strong>most recent upper tract imaging</strong> must be in every surveillance cysto note</li>
+            <li>NMIBC low/intermediate/high-risk <strong>surveillance dot phrase</strong> must be in every surveillance cysto note</li>
+            <li>Once surveillance complete, send <strong>letter to patient and PCP</strong> with triggers for re-referral (gross hematuria, micro hematuria, or masses on imaging)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CYSTECTOMY PREOP -->
+      <div class="pathway-section" id="sec-cysto-preop">
+        <div class="section-header header-teal" onclick="toggleSection(this)">
+          <span class="icon">📋</span> Cystectomy: Preoperative Evaluation
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>Before the Clinic Visit</h3>
+          <ul>
+            <li>Obtain notes from outside urologist, all bladder cancer pathology reports, and archive cross-sectional abdominal/pelvic imaging (CT or MRI) if within 6 months</li>
+            <li>Have most-recent TURBT pathology reviewed if not previously reviewed at UPMC</li>
+          </ul>
+          <h3>During the Clinic Visit</h3>
+          <ul>
+            <li>If ≥ cT2 or N+, assure <strong>neoadjuvant chemo</strong> considered; arrange hem/onc referral if appropriate</li>
+            <li>Discuss early ambulation, incentive spirometer, expect <strong>3–5 day stay</strong></li>
+            <li>Increase activity (walking, cardio, <strong>MSHOP</strong>) beginning 4 weeks pre-op; provide MSHOP bag</li>
+            <li>Stop smoking ≥4 weeks prior; refer to cessation if needed</li>
+          </ul>
+          <h3>Case Request &amp; Pre-Op Orders</h3>
+          <ul>
+            <li>Pre-op H&amp;P/consent; anesthesia eval and medical clearances PRN</li>
+            <li><strong>Labs:</strong> Comp, CBCP, PT, PTT, INR, T&amp;S, U/A with reflex culture; EKG within 1 year</li>
+            <li><strong>ET Consult</strong> — mark preferred stoma site; add alternate if surgeon preference</li>
+            <li>Nutrition Consult</li>
+            <li><strong>Staging:</strong> CT Urogram or A/P and Chest CT within 6 weeks of surgery</li>
+            <li><strong>Cefoxitin</strong> 30 mg/kg (or alt if allergic) IV on call to OR</li>
+            <li><strong>Acetaminophen</strong> 1000mg PO 30 min prior to OR</li>
+            <li><strong>Alvimopan</strong> 12mg PO 30min–5hrs prior, then 12mg BID x 7 days</li>
+          </ul>
+          <div class="callout callout-warning"><strong>Alvimopan:</strong> Avoid if opioids &gt;7 consecutive days prior, liver failure, kidney failure, or GI obstruction. D/C on POD 2 if not requiring opioids.</div>
+          <h3>Patient Instructions (Surgery Schedulers)</h3>
+          <ul>
+            <li>Bring gum or hard candy for post-op</li>
+            <li><strong>NPO:</strong> No solid food 8hrs prior (NPO after midnight for first-start); clear fluids up to 2hrs prior; no bowel prep</li>
+            <li><strong>Carb loading:</strong> 36 oz white grape juice (100% pure) — 24 oz 7–10pm night prior; 12 oz day of surgery up to 2hrs prior</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CYSTECTOMY INTRA -->
+      <div class="pathway-section" id="sec-cysto-intra">
+        <div class="section-header header-green" onclick="toggleSection(this)">
+          <span class="icon">🩺</span> Cystectomy: Intraoperative
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>Intraoperative Protocol</h3>
+          <ul>
+            <li>SCDs placed prior to induction</li>
+            <li><strong>5000 units SQ heparin</strong> post induction</li>
+            <li>OG tube — remove at extubation</li>
+            <li>Core temp <strong>&gt;36°C</strong></li>
+            <li><strong>IVF:</strong> 3 cc/kg/hr; SPV and PPV directed; vasopressor and 250cc boluses for hemodynamic goals</li>
+            <li><strong>Abx:</strong> Re-dose per guidelines (Cefoxitin: 1g &lt;80kg; 2g ≥80kg)</li>
+            <li><strong>Acetaminophen:</strong> 1000mg IV prior to emergence (if ≥6hrs after preop dose)</li>
+            <li><strong>Transfuse:</strong> Hct &lt;21% no CAD; &lt;24% with CAD</li>
+            <li>Pelvic drain — JP and/or Foley at surgeon discretion</li>
+            <li><strong>6-Fr</strong> open-ended single-J ureteral stents</li>
+            <li>½% Marcaine to all incision sites</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CYSTECTOMY POST-OP -->
+      <div class="pathway-section" id="sec-cysto-postop">
+        <div class="section-header header-purple" onclick="toggleSection(this)">
+          <span class="icon">🏥</span> Cystectomy: Postoperative
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>Immediate Post-Op (PACU &amp; Floor)</h3>
+          <ul>
+            <li><strong>PACU Labs:</strong> CBCP, Basic</li>
+            <li><strong>Abx:</strong> Cefoxitin (or alt) x 24hr then D/C</li>
+            <li><strong>DVT:</strong> SCDs + Heparin 5000u SQ Q8H</li>
+            <li><strong>Pain:</strong> Avoid narcotics; Acetaminophen 1000mg IV Q6H (PO when on clears); Toradol 15mg IV Q6H x 48hr (POD#1 if GFR&gt;60)</li>
+            <li><strong>GI:</strong> Famotidine 20mg IV Q12H day 0; transition PO when tolerating diet</li>
+            <li><strong>Transfuse:</strong> 2U PRBC for HCT ≤21% (no CAD) or ≤24% (CAD); hold Toradol if any transfusion; hold heparin if &gt;2U in 24hrs</li>
+            <li>Gum/hard candy Q2–4hr beginning POD 1</li>
+          </ul>
+          <h3>Daily Management (POD 1–4)</h3>
+          <ul>
+            <li><strong>Neobladder:</strong> 60cc saline irrigations Q6H from POD 1; teach patient POD 2</li>
+            <li><strong>Labs:</strong> CBCP, Basic, Ca, Mg, Phos POD 1–4; PRN thereafter</li>
+            <li><strong>Ambulation:</strong> POD 0 OOB to chair; thereafter chair 6x/day, ambulate 6x/day; PT only if debilitated</li>
+            <li><strong>Diet (Open):</strong> 8oz water Q8H POD 0; clears POD 1; regular POD 2</li>
+            <li><strong>Diet (Robotic):</strong> Clears POD 0; regular POD 1</li>
+            <li><strong>Lasix:</strong> 10mg IV POD 2 and 4 if renal function at baseline</li>
+          </ul>
+          <h3>Stent &amp; Drain Management</h3>
+          <ul>
+            <li><strong>Uncomplicated:</strong> Remove 1st stent if tolerating regular diet POD 3–4; 2nd stent 4hrs later or next AM. Cipro PO x1 1hr prior to 1st stent.</li>
+            <li><strong>Complicated:</strong> Stents at surgeon discretion</li>
+            <li><strong>Foley/Pelvic Drain</strong> (NOT neobladder catheter): Remove POD 1</li>
+            <li><strong>JP:</strong> Send JP Cr prior to 1st stent, then 2hrs after 2nd stent; if serous, remove</li>
+          </ul>
+          <h3>Discharge Planning</h3>
+          <ul>
+            <li>Initiate D/C planning <strong>POD 1</strong> or sooner</li>
+            <li>VNA 3x/wk weeks 1–2; 2x/wk weeks 3–4</li>
+            <li>Anticipate D/C <strong>POD 3–5</strong>; flatus and soft abdomen required</li>
+            <li><strong>Neobladder:</strong> UCx from Foley on D/C day; 3-day culture-directed abx/antifungal starting day before Foley removal</li>
+            <li><strong>Famotidine</strong> 20mg PO x 90 days</li>
+            <li><strong>Apixaban</strong> 2.5mg BID x 30 days for DVT prophylaxis (all patients)</li>
+            <li>CBC &amp; Basic 5–7 days post-D/C (can be local); consider hydration if dehydrated</li>
+            <li><strong>Neobladder catheter:</strong> Remove 2 weeks post-op at nurse visit; cystogram prior. Reinforce self-cath/irrigations BID x 90 days.</li>
+          </ul>
+          <div class="callout callout-info"><strong>Return Visits:</strong> 1–2 wk nurse (staple/stent PRN, CBC/Basic); 6 wk APP (renal US, CBC, Basic); 3 mo MD (CT A/P, Basic); then per surveillance.</div>
+        </div>
+      </div>
+
+      <!-- POST-CYSTECTOMY SURVEILLANCE -->
+      <div class="pathway-section" id="sec-cysto-surv">
+        <div class="section-header header-orange" onclick="toggleSection(this)">
+          <span class="icon">📅</span> Post-Cystectomy Surveillance
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>General Principles</h3>
+          <ul>
+            <li>Pathology discussion; letter to patient, PCP, referring urologist, and med onc</li>
+            <li>Refer high-risk (<strong>ypT2, pT3, variant histology, N+</strong>) to med onc at 6 weeks for adjuvant therapy</li>
+            <li><strong>6-week visit:</strong> APP + ET (if urostomy) with CMP, CBC, Renal US; consider Signatera</li>
+            <li><strong>3-month visit:</strong> Surgeon with imaging per risk categories and BMP</li>
+            <li>Further surveillance with APP per risk categories. Refer to home urologist when possible. Defer imaging to med onc if on adjuvant.</li>
+          </ul>
+          <h3>Risk-Stratified Surveillance</h3>
+
+          <h4>Non-Bladder Cancer Indications</h4>
+          <ul>
+            <li>3mo: Basic with surgeon</li>
+            <li>12mo: Basic with APP</li>
+            <li>Annual Basic with PCP to year 10</li>
+          </ul>
+
+          <h4>Low Risk (LG pTa)</h4>
+          <ul>
+            <li>3mo: Basic with surgeon</li>
+            <li>12mo and annually to year 5: Basic, Renal US with APP</li>
+            <li>Annual Basic with PCP to year 10</li>
+          </ul>
+
+          <h4>Intermediate Risk (HG pTa, pT1, pT0 post-TURBT alone)</h4>
+          <ul>
+            <li>3mo: Basic with surgeon</li>
+            <li>Mo 6 &amp; Q6mo to 2yr: Basic, CTU, urine cytology with APP</li>
+            <li>Yr 2–5 annually: Basic, Renal US, urine cytology with APP</li>
+            <li>Yr 5–10 annually: Basic with PCP/local urologist</li>
+          </ul>
+
+          <h4>High Risk (≥pT2, CIS, N+, M+, Positive Margin, Variant Histology, pT0 post-NAC)</h4>
+          <ul>
+            <li>3mo: Basic, CTU with surgeon</li>
+            <li>Mo 6 &amp; Q6mo to 2yr: Basic, Chest CT/CTU, urine cytology with APP</li>
+            <li>Yr 2–10 annually: Basic, Renal US, urine cytology with APP</li>
+          </ul>
+          <div class="callout callout-tip"><strong>Urethral Wash:</strong> At surgeon discretion; consider strongly for CIS or prostatic/urethral disease history.</div>
+        </div>
+      </div>
+
+    </div><!-- /bladder -->
+
+    <!-- ═══════════════ PROSTATE ═══════════════ -->
+    <div class="cancer-panel" id="panel-prostate">
+
+      <!-- PREOP -->
+      <div class="pathway-section" id="sec-p-preop">
+        <div class="section-header header-blue" onclick="toggleSection(this)">
+          <span class="icon">📋</span> Preoperative Evaluation
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>NP Visit</h3>
+          <ul>
+            <li><strong>H&amp;P</strong> (+ family cancer history form)</li>
+            <li><strong>Screening:</strong> EPIC-CP (old AUASI, SHIM)</li>
+            <li><strong>Education:</strong> MUSIC, MPOP, ±MSHOP; preop seminar (live + recordings)</li>
+            <li><strong>Pathology:</strong> Ensure reviewed at UPMC (OK to omit if N/A, unlikely to change mgmt)</li>
+            <li><strong>Radiation Oncology:</strong> Discuss evaluation/referral</li>
+          </ul>
+          <h3>Referrals &amp; Consultations</h3>
+          <ul>
+            <li>Pre-op clinic H&amp;P (local if &gt;1hr drive)</li>
+            <li>MSHOP referral</li>
+            <li>Consultations as indicated: Medicine, Cardiac, Pulmonary, Endocrine, others</li>
+          </ul>
+          <h3>Labs &amp; Imaging</h3>
+          <ul>
+            <li><strong>Labs:</strong> CBC, BMP, Type &amp; Screen, UA with reflex culture; no need to repeat PSA</li>
+            <li>Check labs after NP visit if preop done locally</li>
+            <li><strong>PSMA PET:</strong> ≥GG3 OR PSA ≥20 (including in lieu of prior CT/bone scan)</li>
+            <li><strong>MRI:</strong> ≥GG3 OR PSA ≥20 OR ≥cT3</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PERIOP -->
+      <div class="pathway-section" id="sec-p-periop">
+        <div class="section-header header-teal" onclick="toggleSection(this)">
+          <span class="icon">🩺</span> Perioperative Care
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>Pre-Op Day &amp; Intraoperative</h3>
+          <div class="callout callout-info"><strong>Procedures should be performed in a minimally invasive fashion unless there is a contraindication.</strong></div>
+          <ul>
+            <li><strong>Bowel Prep:</strong> Clear liquids x 24hr (no enema)</li>
+            <li><strong>NPO:</strong> 4 hours prior</li>
+            <li>Type &amp; Screen in AM</li>
+            <li><strong>Abx:</strong> Cefazolin (alt: Clindamycin/Gentamicin) after induction</li>
+            <li><strong>DVT:</strong> SQH + SCDs for all patients</li>
+            <li><strong>Intra-op:</strong> OG tube; limit IVF to 2L for entire case; administer local analgesia</li>
+            <li><strong>Post-PACU:</strong> No PACU labs unless otherwise indicated</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- POSTOP -->
+      <div class="pathway-section" id="sec-p-postop">
+        <div class="section-header header-green" onclick="toggleSection(this)">
+          <span class="icon">🏥</span> Postoperative Care
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <div class="callout callout-info"><strong>Default discharge is same-day.</strong></div>
+          <h3>POD 0 (Day of Surgery)</h3>
+          <ul>
+            <li><strong>Pain:</strong> PO Tylenol + Tramadol/Oxycodone/Toradol (if no CI); IV only for breakthrough</li>
+            <li><strong>Diet:</strong> Clears → ADAT</li>
+            <li><strong>Drains:</strong> Foley ± JP</li>
+            <li><strong>Meds:</strong> Abx x 24hr; Home ASA if cardiac hx</li>
+            <li><strong>Activity:</strong> OOB to chair, ambulate in 4hr, IS</li>
+            <li><strong>DVT:</strong> SCDs + SQH</li>
+            <li><strong>Labs:</strong> None unless indicated; none for same-day D/C</li>
+          </ul>
+          <h3>POD 1 (Day of Discharge)</h3>
+          <ul>
+            <li><strong>Pain:</strong> PO Tylenol + Tramadol/Oxycodone; Toradol if Cr OK</li>
+            <li><strong>Diet:</strong> Regular; HLIV if &gt;300cc PO intake</li>
+            <li><strong>Drains:</strong> D/C JP (check JP Cr if output &gt;30cc after OOB); home with Foley; Foley/leg bag teaching</li>
+            <li><strong>Meds:</strong> Colace 100mg BID + Miralax 17g daily; Bacitracin to meatus QID</li>
+            <li><strong>Activity:</strong> Ambulate x4; IS</li>
+            <li><strong>Labs:</strong> CBC, BMP</li>
+          </ul>
+          <h3>Discharge</h3>
+          <ul>
+            <li><strong>D/C Meds:</strong> PO pain (6 pills PRN), Colace, Miralax, Bactrim x1 dose pre-catheter removal (alt: Cipro/Keflex), Bacitracin to tip QID until catheter out; <strong>No Flomax</strong></li>
+            <li><strong>Supplies:</strong> Foley bags, leg bags (from OBS/5C)</li>
+            <li><strong>Restrictions:</strong> No lifting &gt;10 lbs x 6 weeks; no driving with catheter or on narcotics</li>
+          </ul>
+          <div class="callout callout-warning"><strong>Important:</strong> Catheter questions should be directed straight to UPMC Urology.</div>
+          <ul>
+            <li><strong>Follow-up:</strong> Nursing call 1–2 days; Nursing visit 5–7 days (catheter removal); Survivorship 6–8 wk; MD 3–4 mo</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SURVIVORSHIP -->
+      <div class="pathway-section" id="sec-p-survival">
+        <div class="section-header header-purple" onclick="toggleSection(this)">
+          <span class="icon">📅</span> Survivorship &amp; Follow-up
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>Post-Op Milestones</h3>
+          <ul>
+            <li><strong>5–7 days:</strong> Catheter/staple removal; start Kegels; start PDE-5i (Viagra 50mg QOD or Cialis 5mg daily); schedule PFT for 4 wk post-op (book pre-op)</li>
+            <li><strong>6–8 wk Survivorship:</strong> APP + sex therapist; penile rehab (prelude, VED); continue Kegels; PFT monitoring</li>
+            <li><strong>3–4 mo MD:</strong> Discuss/order germline testing if indicated</li>
+          </ul>
+
+          <h4>Low Risk Schedule (GG1-2, pT2N0, R0)</h4>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Timeline</th><th>PSA</th><th>Distress</th><th>MUSIC</th><th>MD</th><th>APP</th><th>Sex Hlth</th><th>Local</th></tr></thead>
+              <tbody>
+                <tr><td>NP Appt</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>6-8wk Post-Op</td><td>No PSA</td><td class="check">✓</td><td class="check">✓</td><td></td><td class="check">✓</td><td class="check">✓</td><td></td></tr>
+                <tr><td>3-4 months</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td></tr>
+                <tr><td>9 months</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td></td><td class="check">✓</td><td></td><td></td></tr>
+                <tr><td>Years 1-3</td><td>Annual</td><td class="check">✓</td><td class="check">✓</td><td></td><td class="check">✓</td><td></td><td></td></tr>
+                <tr><td>Years 3+</td><td>Annual</td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout callout-tip"><strong>Transition</strong> to local urologist at 3 years (sooner at MD discretion), if possible.</div>
+
+          <h4>Int-High Risk Schedule (GG3-5, T3-4, R1, LN+, M+)</h4>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Timeline</th><th>PSA</th><th>Distress</th><th>MUSIC</th><th>MD</th><th>APP</th><th>Sex Hlth</th><th>Local</th></tr></thead>
+              <tbody>
+                <tr><td>NP Appt</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>6-8wk Post-Op</td><td>No PSA</td><td class="check">✓</td><td class="check">✓</td><td></td><td class="check">✓</td><td class="check">✓</td><td></td></tr>
+                <tr><td>3mo-2yr</td><td>Q3mo</td><td class="check">✓</td><td class="check">✓</td><td>Q6mo</td><td></td><td></td><td></td></tr>
+                <tr><td>Years 3-5</td><td>Q6mo</td><td class="check">✓</td><td></td><td>Q6mo</td><td></td><td></td><td></td></tr>
+                <tr><td>Years 5+</td><td>Annual</td><td></td><td></td><td>Annual</td><td></td><td></td><td class="check">✓</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout callout-warning"><strong>Important:</strong> Keep patients in UPMC system. Transition to local only at MD discretion.</div>
+        </div>
+      </div>
+
+      <!-- PSA STATES -->
+      <div class="pathway-section" id="sec-p-psa">
+        <div class="section-header header-orange" onclick="toggleSection(this)">
+          <span class="icon">📊</span> Additional Therapy / PSA States
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>Post-RP Disease States</h3>
+          <p style="font-size:0.8rem;color:var(--gray-400);">Lane…Borza; Eur Urol 2024</p>
+          <h4>Undetectable PSA — Favorable Pathology</h4>
+          <p><strong>Tx:</strong> Surveillance</p>
+          <h4>Undetectable PSA — Concerning Path (pN+, ISUP GG4-5 AND pT3b-4 ± positive margin)</h4>
+          <p><strong>Tx:</strong> Surveillance or adjuvant therapy</p>
+          <h4>PSA Persistence — Favorable Path, No radiographic disease</h4>
+          <p><strong>Tx:</strong> Surveillance or consolidative therapy</p>
+          <h4>PSA Persistence — Concerning Path (pN+, pT3-4, ISUP GG3-5, radiographic disease)</h4>
+          <p><strong>Tx:</strong> Consolidative therapy</p>
+          <h4>PSA Recurrence (undetectable → detectable PSA)</h4>
+          <p><strong>Tx:</strong> Salvage therapy (early) or surveillance</p>
+          <h4>Metastatic Disease</h4>
+          <p><strong>Tx:</strong> Management of metastatic prostate cancer</p>
+        </div>
+      </div>
+
+      <!-- GERMLINE -->
+      <div class="pathway-section" id="sec-p-germline">
+        <div class="section-header header-red" onclick="toggleSection(this)">
+          <span class="icon">🧬</span> Germline Genetic Testing
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>Indications for Germline Testing</h3>
+          <p>Offer germline testing to prostate cancer patients who have:</p>
+          <ul>
+            <li>Positive family history of prostate cancer or related cancers</li>
+            <li>Personal history of breast cancer</li>
+            <li>Ashkenazi Jewish ancestry</li>
+            <li>GG 4/5 disease</li>
+            <li>Metastases (regional or distant)</li>
+            <li>GG 2/3 with cribriform/intraductal pathology</li>
+            <li>Personal history of: pancreatic, breast, colorectal, gastric cancer, melanoma, UTUC, glioblastoma, biliary tract, or small intestinal cancer</li>
+          </ul>
+          <h3>Pre-Test Counseling &amp; Consent</h3>
+          <div class="callout callout-info"><strong>Required:</strong> Spend a few minutes on pre-test education with patients and [CONFIRM WITH DR. DAVIES: UPMC consent process for germline testing — replace Michigan Medicine consent language and PDF reference with UPMC equivalent] in the Cancer Center clinic.</div>
+          <h3>Financial Assistance</h3>
+          <div class="callout callout-tip"><strong>Encourage all patients to apply for financial assistance</strong>, even if they expect insurance coverage. This can reduce copays and deductibles. Out-of-pocket costs are generally capped at around $300, and in most cases there is no OOP cost.</div>
+          <h3>Ordering &amp; Specimen Collection</h3>
+          <ul>
+            <li>[CONFIRM WITH DR. DAVIES: UPMC equivalent for blood draw options and order placement — replace U of M labs / MiChart references with correct UPMC lab and EHR workflow.]</li>
+            <li><strong>Saliva</strong> is also an option if the patient lives far away and mobile phlebotomy is not feasible — a kit will be mailed to them.</li>
+          </ul>
+          <div class="callout callout-tip">[CONFIRM WITH DR. DAVIES: UPMC equivalent order search and collection options — replace MiChart / U of M labs references with correct UPMC workflow.]</div>
+        </div>
+      </div>
+
+      <!-- TP BIOPSY -->
+
+    </div><!-- /prostate -->
+
+    <!-- ═══════════════ KIDNEY ═══════════════ -->
+    <div class="cancer-panel" id="panel-kidney">
+
+      <!-- INTAKE -->
+      <div class="pathway-section" id="sec-k-intake">
+        <div class="section-header header-blue" onclick="toggleSection(this)">
+          <span class="icon">📋</span> Intake &amp; Initial Workup
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>Referral Stratification</h3>
+          <ul>
+            <li><strong>≥4 cm:</strong> Expedited visit in cancer center with urologic oncologist</li>
+            <li><strong>&lt;4 cm:</strong> General intake; general urology or small renal mass clinic</li>
+          </ul>
+          <h3>Pre-Visit Records</h3>
+          <ul>
+            <li>Notes from referring physician</li>
+            <li><strong>Imaging:</strong> Most recent cross-sectional abd/renal (CT/MRI) and chest (CT/CXR) within 12 months; archive images</li>
+          </ul>
+          <div class="callout callout-warning"><strong>Important:</strong> Images MUST be submitted to archive, not just LifeImage — purged after a short period.</div>
+          <ul>
+            <li><strong>Interpretation:</strong> Submit most recent cross-sectional if within 3 months</li>
+            <li><strong>Pathology:</strong> Obtain slides for biopsy/prior removal at outside facility within 12 months; slides for any urothelial cancer diagnosis</li>
+          </ul>
+          <h3>NP Visit</h3>
+          <ul>
+            <li>UA for proteinuria and hematuria</li>
+            <li>Recent CMP and CBC</li>
+            <li>Urine cytology if UCC on differential</li>
+            <li>MSHOP materials at surgeon discretion (Modifier 22 for BCBS)</li>
+          </ul>
+          <h3>Genetics &amp; Additional Evaluations</h3>
+          <h4>Genetics Evaluation if:</h4>
+          <ul>
+            <li>≤46 years old</li>
+            <li>Bilateral or multiple tumors</li>
+            <li>1+ 1st/2nd-degree relatives with RCC</li>
+            <li>Multifocal papillary (HPRC)</li>
+            <li>HLRCC-associated RCC</li>
+            <li>BHD-related histology</li>
+            <li>AML + 1 other TSCC feature</li>
+            <li>SDH-deficient RCC</li>
+          </ul>
+          <h4>Nephrology Referral if:</h4>
+          <ul>
+            <li>Post-treatment GFR likely ≤30</li>
+            <li>GFR ≤45, confirmed proteinuria, or diabetics with CKD</li>
+          </ul>
+          <h4>Renal Mass Biopsy:</h4>
+          <ul>
+            <li>If will influence decision; NOT clear surveillance candidate</li>
+            <li>Consider for significant comorbidities or CKD risk</li>
+          </ul>
+          <h4>Staging Imaging:</h4>
+          <ul>
+            <li>CT chest for T1b+</li>
+            <li>Bone scan if: elevated alk phos, CT signs of mets, symptoms</li>
+            <li>Brain imaging if: neuro symptoms, high-risk tumors</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PRE-OP -->
+      <div class="pathway-section" id="sec-k-preop">
+        <div class="section-header header-teal" onclick="toggleSection(this)">
+          <span class="icon">🩺</span> Pre-Operative
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>Pre-Op Eval &amp; Labs</h3>
+          <ul>
+            <li>Local pre-op H&amp;P option if &gt;1hr away; [CONFIRM WITH DR. DAVIES: MSHOP (Michigan Surgical &amp; Health Optimization Program) referral for BCBS — is there a UPMC equivalent? If not, remove this reference.]</li>
+            <li><strong>Labs:</strong> CBC, CMP (GFR), Type &amp; Screen, UA w/ reflex culture</li>
+            <li>Bowel prep: 24hr clears; pregnancy test PRN</li>
+            <li>Case requests: ESAS tier HIGH; EKG and clearances as indicated</li>
+          </ul>
+          <h3>Imaging &amp; Surgical Timeline</h3>
+          <ul>
+            <li>Chest imaging for T1b+ within 6 months</li>
+            <li><strong>Cross-sectional:</strong> Within 3mo (standard risk), 1–2mo (large/high risk), 2–4wk (IVC thrombus)</li>
+            <li><strong>Timeline:</strong> 2mo low risk; 1mo high risk; 1wk IVC</li>
+            <li><strong>Abx:</strong> Ancef (robotic/MIS); Cefoxitin (IVC); Clinda+Gent if allergy</li>
+            <li><strong>Anticoag:</strong> SQ Heparin for all</li>
+            <li><strong>Blocks:</strong> QL block for all except IVC (in pre-op or PACU); intrathecal opioid option for open</li>
+          </ul>
+          <h4>IVC Thrombectomy Exceptions</h4>
+          <div class="callout callout-warning">Possible/likely pre-admit; T&amp;C 2 pRBCs in fridge. <strong>Email</strong> [CONFIRM WITH DR. DAVIES: Which UPMC contact/email address should receive advance notice for anesthesia/perfusion readiness on IVC thrombectomy cases?] ahead of time for anesthesia/perfusion readiness.</div>
+          <ul>
+            <li><strong>Inpatient imaging:</strong> MRI abd, Chest CT, possible brain MRI</li>
+            <li><strong>Circ arrest:</strong> CVC coordination; TTE/TEE ± cardiac cath prior</li>
+            <li><strong>Post-op:</strong> SICU (or CVICU if circ arrest)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- INTRA -->
+      <div class="pathway-section" id="sec-k-intra">
+        <div class="section-header header-green" onclick="toggleSection(this)">
+          <span class="icon">🩺</span> Intraoperative
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>Intraoperative Protocol</h3>
+          <ul>
+            <li>OG tube; Foley (size/type at surgeon discretion)</li>
+            <li><strong>Nephroureterectomy:</strong> Order intra-op gemcitabine in case request; must be in room day of surgery</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- POST-OP -->
+      <div class="pathway-section" id="sec-k-postop">
+        <div class="section-header header-purple" onclick="toggleSection(this)">
+          <span class="icon">🏥</span> Post-Op Protocols
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <div class="callout callout-info"><strong>Note:</strong> Lap/Endo service radical and partial do NOT get SQH; Onc service gets SQH.</div>
+          <h3>Lap/Robot Nephrectomy</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>POD</th><th>Pain</th><th>Diet</th><th>Drains</th><th>Meds</th><th>Activity</th><th>Prophy</th><th>Labs</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><strong>POD 0</strong></td>
+                  <td>IV Tylenol + Tramadol/Oxy</td>
+                  <td>Clear liquid</td>
+                  <td>Rad: Foley, D/C Foley; Part: ±JP, Foley</td>
+                  <td>Abx x24hr</td>
+                  <td>OOB to chair</td>
+                  <td>SCDs SQH TID</td>
+                  <td>None in PACU</td>
+                </tr>
+                <tr>
+                  <td><strong>POD 1 (D/C)</strong></td>
+                  <td>PO Tylenol + Tramadol/Oxy; Toradol after Cr</td>
+                  <td>CLD ±ADAT</td>
+                  <td>Part: D/C Foley</td>
+                  <td>D/C abx; Colace BID + Miralax</td>
+                  <td>Ambulate IS</td>
+                  <td>SCDs SQH TID</td>
+                  <td>CBC/Basic/Mg/Phos</td>
+                </tr>
+                <tr>
+                  <td><strong>POD 2 PN (D/C)</strong></td>
+                  <td>PO Tylenol + Tramadol/Oxy</td>
+                  <td>Regular</td>
+                  <td>Part: D/C Foley, JP if low output; ±JP Cr</td>
+                  <td>D/C: PO pain, Colace/Miralax; opioid limit</td>
+                  <td>As above</td>
+                  <td>SCDs SQH TID</td>
+                  <td>No labs D/C day</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Open Nephrectomy</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>POD</th><th>Pain</th><th>Diet</th><th>Drains</th><th>Meds</th><th>Activity</th><th>Prophy</th><th>Labs</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><strong>POD 0</strong></td>
+                  <td>IV Tylenol + Oxy</td>
+                  <td>Clear liquid</td>
+                  <td>Rad: Foley; Part: ±JP, Foley</td>
+                  <td>Abx x24hr</td>
+                  <td>OOB to chair</td>
+                  <td>SCDs SQH TID</td>
+                  <td>None in PACU</td>
+                </tr>
+                <tr>
+                  <td><strong>POD 1</strong></td>
+                  <td>IV/PO Tylenol + Oxy; Toradol after Cr</td>
+                  <td>CLD ±advance to regular</td>
+                  <td>Part: per attending</td>
+                  <td>D/C abx; Colace BID + Miralax</td>
+                  <td>Ambulate IS</td>
+                  <td>SCD SQH TID</td>
+                  <td>CBC/Basic/Mg/Phos</td>
+                </tr>
+                <tr>
+                  <td><strong>POD 2+ until D/C</strong></td>
+                  <td>PO Tylenol + Oxy</td>
+                  <td>Regular</td>
+                  <td>Part: D/C Foley, JP if low output; ±JP Cr</td>
+                  <td>D/C: PO pain, Colace/Miralax; opioid limit</td>
+                  <td>As above</td>
+                  <td>SCD SQH TID</td>
+                  <td>CBC/Basic/Mg/Phos; no labs D/C day</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Nephroureterectomy &amp; Outpatient Follow-up</h3>
+          <h4>Nephroureterectomy:</h4>
+          <ul>
+            <li>Send JP Cr prior to removal; home with Foley</li>
+            <li>Single dose abx at Foley removal; no cystogram unless surgeon specifies</li>
+          </ul>
+          <h4>All MIS Partial &amp; Radical:</h4>
+          <ul><li>Video visit 1–2 wk for pathology (per surgeon); BMP/CBC in prep</li></ul>
+          <h4>Nephroureterectomy:</h4>
+          <ul><li>Catheter pull 7–10 days; CMP/CBC at 7–10 days</li></ul>
+          <h4>Adjuvant Referrals:</h4>
+          <ul>
+            <li><strong>ccRCC:</strong> Med onc for pembro if Grade 4, sarcomatoid, pT3+, N1, M1 NED; ASSURE nomogram</li>
+            <li><strong>Non-ccRCC:</strong> No adjuvant</li>
+            <li><strong>UTUC:</strong> Med onc for pT3/pT4/pN+ (no NAC) or ypT2-4/ypN+ (post-NAC)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- POST-NEPHRECTOMY SURVEILLANCE -->
+      <div class="pathway-section" id="sec-k-surv">
+        <div class="section-header header-orange" onclick="toggleSection(this)">
+          <span class="icon">📅</span> Post-Nephrectomy Surveillance
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>Low-Risk Stage I (T1)</h3>
+          <ul>
+            <li>Optional 6-month post-op imaging for baseline</li>
+            <li>CBC, BMP yearly to 5 years; clinically indicated after</li>
+            <li>Cross-sectional imaging annually, sparing ultrasound use</li>
+            <li>CT chest only if baseline findings need follow-up</li>
+          </ul>
+          <h3>High-Risk Surveillance</h3>
+          <ul>
+            <li><strong>Cadence:</strong> Q3 (VHR) or Q6 (HR) mo yr 1; Q6mo to yr 3; annually to yr 5; then clinically indicated</li>
+            <li>CMP, CBC; abdominal CT or MRI</li>
+            <li><strong>Chest CT:</strong> Baseline 3–6mo; Q6mo for ≥3yr; annually to 5yr</li>
+            <li>Beyond 5yr: per individual characteristics and tumor risk</li>
+            <li>Additional imaging (bone scan, brain) as symptoms warrant</li>
+          </ul>
+          <h3>Familial RCC &amp; Graduation</h3>
+          <ul>
+            <li><strong>VHL:</strong> Yearly metanephrine, yearly cross-sectional imaging, refer for systemic therapy</li>
+            <li><strong>BHD:</strong> Chest imaging or referral to pulmonology</li>
+          </ul>
+          <h4>Low/Int Risk RCC — Graduation</h4>
+          <ul><li>Standard: 10yr (Q2yr after 5yr); Young/multifocal: 10yr or longer</li></ul>
+          <h4>High/Very High Risk RCC</h4>
+          <ul><li>Standard: 10yr (Q2yr after 5yr); Young/multifocal: 10yr or longer</li></ul>
+          <h4>Familial RCC</h4>
+          <ul><li>Lifelong</li></ul>
+          <h4>pT0/pT1 UCC</h4>
+          <ul><li>Cysto 5yr (low risk) or 10yr (high risk)</li></ul>
+          <h4>pT2-4, N+</h4>
+          <ul><li>Cysto for 10 years</li></ul>
+          <h3>Thermal Ablation Follow-up</h3>
+          <ul>
+            <li><strong>LR:</strong> pT1, Grade 1/2</li>
+            <li><strong>IR:</strong> pT1 Grade 3/4 or pT2</li>
+            <li><strong>HR:</strong> pT3</li>
+            <li><strong>VHR:</strong> pT4, pN1, sarcomatoid/rhabdoid, or macroscopic positive margin</li>
+          </ul>
+          <div class="callout callout-info">Positive microscopic margins: consider at least one risk level higher. Post-ablation: pre/post-contrast imaging within 6 months; then follow IR protocol.</div>
+        </div>
+      </div>
+
+      <!-- UTUC -->
+      <div class="pathway-section" id="sec-k-utuc">
+        <div class="section-header header-red" onclick="toggleSection(this)">
+          <span class="icon">🔍</span> UTUC Follow-up
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <h3>UTUC Classification</h3>
+          <h4>Low-Risk UTUC (ALL must be present)</h4>
+          <ul>
+            <li>Unifocal, &lt;2cm, negative high-grade cytology, low-grade URS biopsy, no invasive aspect on CT</li>
+          </ul>
+          <h4>High-Risk — Strong Criteria (ANY present)</h4>
+          <ul>
+            <li>High-grade cytology, high-grade URS biopsy, local invasion on CT, histological subtype</li>
+          </ul>
+          <h4>Weak Criteria (low-grade; not strong predictors)</h4>
+          <ul>
+            <li>Multifocal, ≥2cm, hydronephrosis</li>
+          </ul>
+          <h3>Post-Nephroureterectomy Surveillance</h3>
+          <h4>Low-Risk (solitary, non-invasive, low grade)</h4>
+          <ul>
+            <li>Cysto at 3mo, 9mo, then yearly x 5yr</li>
+          </ul>
+          <h4>High-Risk pT0/pT1 or ypT0/pT1</h4>
+          <ul>
+            <li>Cysto/cytology Q3mo x 2yr, Q6mo to 5yr, then yearly</li>
+            <li>Cross-sectional + CT chest Q6mo x 2yr, then yearly</li>
+          </ul>
+          <h4>pT3/pT4/pN+ or ypT2-4/N+ — Refer Med Onc</h4>
+          <ul>
+            <li>Cysto/cyto as above; other imaging per med onc</li>
+          </ul>
+        </div>
+      </div>
+
+
+      <!-- RCC IVC THROMBECTOMY POLICY -->
+      <div class="pathway-section" id="sec-k-ivc">
+        <div class="section-header header-blue" onclick="toggleSection(this)">
+          <span class="icon">📋</span> RCC IVC Thrombectomy: Centralization Policy
+          <span class="chevron">▼</span>
+        </div>
+        <div class="section-body">
+
+          <div class="callout-doc callout-doc-blue">
+            <span class="callout-doc-title">Policy URO-ONC-001 | Effective: May 1, 2026 | Designated Sites: UPMC Presbyterian Hospital; UPMC Montefiore Hospital</span>
+            <p>This policy applies to all faculty within the UPMC Division of Urologic Oncology, advanced practice providers, residents, and fellows involved in the care of patients with RCC and IVC thrombus, operative scheduling coordinators and administrative personnel, and referring physicians both within and outside the UPMC health system.</p>
+          </div>
+
+          <h3>1. Purpose</h3>
+          <p>The Division of Urologic Oncology at UPMC has established this policy to ensure the highest standards of surgical care, interdisciplinary collaboration, and patient safety for patients with renal cell carcinoma (RCC) presenting with Level 2 inferior vena cava (IVC) tumor thrombus. Given the complexity, operative risk, and need for specialized vascular and hepatic surgical expertise inherent in these cases, all such procedures are centralized at a single designated site with defined multidisciplinary infrastructure.</p>
+
+          <h3>2. Scope and Applicability</h3>
+          <p>This policy applies to:</p>
+          <ul>
+            <li>All faculty within the UPMC Division of Urologic Oncology</li>
+            <li>Advanced practice providers, residents, and fellows involved in the care of patients with RCC and IVC thrombus</li>
+            <li>Operative scheduling coordinators and administrative personnel responsible for surgical case booking</li>
+            <li>Referring physicians and advanced practice providers both within and outside the UPMC health system</li>
+          </ul>
+
+          <h3>3. Clinical Background</h3>
+          <p>Renal cell carcinoma with venous tumor thrombus involves extension of tumor into the renal vein and, in a subset of patients, cephalad extension into the IVC. The Mayo Clinic classification system stratifies IVC thrombus by level of cephalad extension:</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Level</th><th>Classification</th><th>Anatomic Definition</th><th>Complexity</th></tr></thead>
+              <tbody>
+                <tr><td>0</td><td>Renal Vein</td><td>Thrombus confined to renal vein</td><td>Low</td></tr>
+                <tr><td>I</td><td>Infradiaphragmatic</td><td>Thrombus extends &lt;2 cm above renal vein ostium</td><td>Moderate</td></tr>
+                <tr><td><strong>II ▶</strong></td><td><strong>Infradiaphragmatic (High)</strong></td><td>Thrombus extends ≥2 cm above renal vein ostium but remains below diaphragm — <strong>POLICY APPLIES</strong></td><td><strong>High — Designated Sites Only</strong></td></tr>
+                <tr><td><strong>III ▶</strong></td><td><strong>Supradiaphragmatic</strong></td><td>Thrombus extends above diaphragm, below right atrium — <strong>POLICY APPLIES</strong></td><td><strong>Very High — Designated Sites Only</strong></td></tr>
+                <tr><td><strong>IV ▶</strong></td><td><strong>Intracardiac</strong></td><td>Thrombus extends into right atrium — <strong>POLICY APPLIES</strong></td><td><strong>Extreme — Designated Sites Only</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Level 2 thrombus requires infradiaphragmatic IVC control, mobilization of the liver, and potentially temporary hepatic vascular exclusion. Level 3 thrombus extends above the diaphragm and requires supradiaphragmatic IVC control, often necessitating thoracoabdominal exposure and cardiac anesthesia involvement. Level 4 thrombus extends into the right atrium and requires cardiopulmonary bypass (CPB) for safe extraction. All three levels require operative expertise extending well beyond standard urologic oncology training and mandate the presence of a liver transplant surgeon with hepatic vascular control proficiency and confirmed cardiovascular surgery and CPB capability at the operating site.</p>
+
+          <h3>4. Policy Statement</h3>
+
+          <h4>4.1 Designated Surgical Site</h4>
+          <p>All surgical cases involving Level 2, Level 3, or Level 4 RCC IVC thrombectomy shall be performed exclusively at UPMC Presbyterian Hospital or UPMC Montefiore Hospital.</p>
+          <p>Both institutions have been vetted and confirmed to maintain full cardiovascular surgery services and on-site cardiopulmonary bypass (CPB) capability — infrastructure that is required for Level 3 and Level 4 cases and must be available on standby for all Level 2 cases given the potential for intraoperative upstaging. Designation is based on the availability of:</p>
+          <ul>
+            <li>Liver transplant surgical expertise with dedicated block time allocated to the Division of Urologic Oncology</li>
+            <li>Full cardiovascular surgery services with on-site cardiopulmonary bypass (CPB) capability — vetted and confirmed at both designated sites</li>
+            <li>Cardiac surgery and perfusionist teams available for emergent CPB conversion if intraoperative hemodynamic instability or unanticipated intracardiac thrombus extension is identified</li>
+            <li>Institutional infrastructure for complex retroperitoneal and vascular surgery</li>
+            <li>High-acuity postoperative care including surgical ICU and hepatobiliary nursing expertise</li>
+            <li>Established multidisciplinary team relationships across Urologic Oncology, Hepatobiliary Surgery, Interventional Radiology, and Anesthesiology</li>
+            <li>Intraoperative transesophageal echocardiography (TEE) capability for thrombus level assessment</li>
+          </ul>
+
+          <h4>4.2 Mandatory Liver Transplant Surgeon Co-Surgeon Requirement</h4>
+          <div class="callout callout-warning">A UPMC liver transplant surgeon must be present as an operating surgeon — not a consultant — for all Level 2, 3, and 4 IVC thrombectomy cases. For Level 3 and 4 cases, cardiovascular surgery must additionally be engaged as an operating team. Cases may not be scheduled or performed without confirmed co-surgeon availability and allocated block time.</div>
+          <p>Roles and responsibilities of the liver transplant co-surgeon include:</p>
+          <ul>
+            <li>Intraoperative hepatic mobilization and liver retraction as required for IVC exposure</li>
+            <li>Performance of hepatic vascular exclusion maneuvers (Pringle maneuver, hepatic vein clamping) when required for safe caval control</li>
+            <li>Management of intraoperative vascular complications involving the IVC, hepatic veins, or portal vasculature</li>
+            <li>Preoperative surgical planning participation including review of cross-sectional imaging</li>
+          </ul>
+          <p>For Level 3 and Level 4 cases, additional cardiovascular surgery requirements apply:</p>
+          <ul>
+            <li>Cardiovascular surgery attending must be present in the operating room for Level 3 cases requiring supradiaphragmatic IVC control</li>
+            <li>Cardiac surgery team with perfusionist and CPB circuit must be on standby and immediately available for all Level 3 cases; active CPB required for Level 4</li>
+            <li>Cardiac anesthesia involvement required for Level 3 and Level 4 cases; transesophageal echocardiography (TEE) mandatory</li>
+            <li>Thoracoabdominal or median sternotomy approach planning must be documented preoperatively for Level 3 and 4 cases</li>
+          </ul>
+
+          <h4>4.3 Liver Transplant Surgeon Block Time Allocation</h4>
+          <p>The Division of Urologic Oncology maintains dedicated block time at both designated hospitals in coordination with the Division of Transplantation Surgery — and for Level 3 and 4 cases, the Division of Cardiothoracic Surgery — for the scheduling of Level 2 or higher IVC thrombectomy cases. The following scheduling requirements apply:</p>
+          <ul>
+            <li>All Level 2, 3, and 4 RCC IVC thrombectomy cases must be booked within designated Urologic Oncology / Liver Transplant joint block time</li>
+            <li>Level 3 and 4 cases additionally require confirmed cardiovascular surgery team availability and CPB circuit reservation prior to booking</li>
+            <li>Scheduling coordinators must confirm co-surgeon availability prior to case booking</li>
+            <li>Cases requiring urgent or expedited scheduling must be coordinated directly between the Division Chief of Urologic Oncology and the liver transplant surgical team</li>
+            <li>Cases may not be placed in standard Urologic Oncology-only block time; non-compliance will trigger administrative review</li>
+          </ul>
+
+          <h3>5. Patient Eligibility and Case Identification</h3>
+          <p>This policy applies to all patients meeting the following criteria:</p>
+          <ul>
+            <li>Confirmed or highly suspected renal cell carcinoma (any histologic subtype) based on imaging or pathology</li>
+            <li>Radiographic evidence of IVC thrombus classified as Level 2, Level 3, or Level 4 (infradiaphragmatic extending ≥2 cm above the renal vein ostium, supradiaphragmatic, or intracardiac) as assessed by dedicated abdominal/pelvic MRI or CT venography with dedicated cardiac imaging for suspected Level 3–4</li>
+            <li>Surgical candidacy confirmed by multidisciplinary review</li>
+          </ul>
+          <p>The responsible urologic oncology attending is accountable for:</p>
+          <ul>
+            <li>Accurate preoperative thrombus level classification using dedicated cross-sectional imaging</li>
+            <li>Timely initiation of the case scheduling process in accordance with this policy</li>
+            <li>Referral to UPMC Presbyterian if the patient's care is being managed at another UPMC network site</li>
+          </ul>
+
+          <h3>6. Referral and Transfer of Care Requirements</h3>
+          <p>Patients with Level 2, 3, or 4 RCC IVC thrombus identified at any UPMC network site must be referred to the Division of Urologic Oncology at UPMC Presbyterian Hospital or UPMC Montefiore Hospital for surgical planning and case execution. Accepting surgeons must have cross-coverage agreement and shared block time with a designated liver transplant co-surgeon, and the designated site must confirm cardiovascular surgery and CPB availability for the scheduled case date.</p>
+          <p>External referrals from non-UPMC institutions are welcomed and should be directed to the UPMC Urologic Oncology intake coordination line. Expedited consultation and imaging review will be facilitated upon referral.</p>
+
+          <h3>7. Multidisciplinary Pre-operative Review</h3>
+          <p>Prior to scheduling, the following multidisciplinary review steps are required:</p>
+          <ul>
+            <li>Dedicated cross-sectional imaging review (MRI abdomen/pelvis with gadolinium preferred) to confirm thrombus level; cardiac MRI or CT chest for suspected Level 3–4 to define supradiaphragmatic or intracardiac extension</li>
+            <li>Cardiovascular surgery team notification and confirmation of CPB standby availability for the scheduled case date; active CPB team booking required for all Level 3 and Level 4 cases</li>
+            <li>Cardiac anesthesia consultation required for Level 3 and Level 4 cases; TEE planning documented</li>
+            <li>Anesthesiology pre-operative evaluation for high-risk vascular/cardiac surgical case</li>
+            <li>Cardiology or cardiac anesthesia consultation if TEE is planned or if intracardiac thrombus extension cannot be excluded</li>
+            <li>Interventional radiology involvement for consideration of preoperative IVC filter placement when clinically indicated</li>
+            <li>Preoperative oncology consultation for patients with metastatic disease in whom systemic therapy sequencing is relevant</li>
+          </ul>
+
+          <h3>8. Exceptions and Emergency Circumstances</h3>
+          <div class="callout callout-warning">Exceptions to this policy may occur in the following limited circumstances:
+            <ul style="margin-top:8px;">
+              <li>Life-threatening hemorrhage or acute hemodynamic instability requiring emergent operative intervention at a non-designated UPMC facility</li>
+              <li>Intraoperative reclassification of thrombus level that was not identifiable on preoperative imaging</li>
+            </ul>
+            In all exception cases, the Division Chief must be notified within 24 hours. A post-case review will be conducted, and cases will be logged for quality improvement tracking. Exceptions do not modify the prospective scheduling requirements of this policy.
+          </div>
+
+          <h3>9. Quality Improvement and Compliance Monitoring</h3>
+          <p>The Division of Urologic Oncology will monitor compliance with this policy through the following mechanisms:</p>
+          <ul>
+            <li>Quarterly case log review of all nephrectomy with IVC thrombectomy cases performed across UPMC network sites</li>
+            <li>Audit of operative records to confirm co-surgeon participation and site compliance</li>
+            <li>Review of any cases identified as non-compliant, with root cause analysis and corrective action plan as appropriate</li>
+            <li>Annual policy review with input from Urologic Oncology and Transplantation Surgery divisional leadership</li>
+          </ul>
+
+          <h3>10. Related Policies and References</h3>
+          <ul>
+            <li>UPMC Urologic Oncology — Surgical Centralization Framework (URO-ONC-000)</li>
+            <li>UPMC Presbyterian Hospital — Operating Room Block Time Scheduling Policy</li>
+            <li>NCCN Clinical Practice Guidelines in Oncology: Kidney Cancer (current version)</li>
+            <li>Blute ML, et al. Experience with inferior vena caval thrombectomy and nephrectomy for renal cell carcinoma. <em>BJU Int.</em> 2004.</li>
+            <li>Psutka SP, Leibovich BC. Management of inferior vena cava tumor thrombus in locally advanced renal cell carcinoma. <em>Ther Adv Urol.</em> 2015.</li>
+          </ul>
+
+          <h3>11. Approval and Signatures</h3>
+          <div class="table-wrap">
+            <table>
+              <tbody>
+                <tr>
+                  <td><strong>Division Chief, Urologic Oncology</strong><br>Signature: ________________________<br>Date: ____________________________</td>
+                  <td><strong>Chair, Department of Urology</strong><br>Signature: ________________________<br>Date: ____________________________</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:0.8rem;color:var(--gray-600);margin-top:12px;">This policy supersedes all prior verbal or informal site-of-care arrangements for RCC IVC thrombectomy within the UPMC Division of Urologic Oncology. Questions regarding interpretation or application should be directed to the Division Chief.</p>
+
+        </div>
+      </div>
+
+    </div><!-- /kidney -->
+
+    <div class="no-results" id="noResults">No results found. Try a different search term.</div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Updated April 2026 · UPMC Department of Urology
+  <br style="margin-bottom:6px">
+  <span style="opacity:0.75;font-size:0.75rem;">Adapted with permission from Dr. Todd Morgan (University of Michigan). Content has been modified for use at UPMC.</span>
+</footer>
+
+<!-- SHARE MODAL -->
+<div class="modal-overlay" onclick="if(event.target===this)closeShare()">
+  <div class="modal">
+    <h3>Share This Pathway</h3>
+    <p>Scan with your phone camera to open</p>
+    <svg width="160" height="160" viewBox="0 0 160 160" style="margin:0 auto;display:block;border:1px solid #e5e7eb;border-radius:8px;padding:8px;background:#fff">
+      <!-- Simple placeholder QR visual -->
+      <rect x="10" y="10" width="60" height="60" fill="none" stroke="#4D104A" stroke-width="8"/>
+      <rect x="22" y="22" width="36" height="36" fill="#4D104A"/>
+      <rect x="90" y="10" width="60" height="60" fill="none" stroke="#4D104A" stroke-width="8"/>
+      <rect x="102" y="22" width="36" height="36" fill="#4D104A"/>
+      <rect x="10" y="90" width="60" height="60" fill="none" stroke="#4D104A" stroke-width="8"/>
+      <rect x="22" y="102" width="36" height="36" fill="#4D104A"/>
+      <rect x="95" y="95" width="10" height="10" fill="#4D104A"/>
+      <rect x="110" y="95" width="10" height="10" fill="#4D104A"/>
+      <rect x="125" y="95" width="25" height="10" fill="#4D104A"/>
+      <rect x="95" y="110" width="25" height="10" fill="#4D104A"/>
+      <rect x="125" y="110" width="10" height="10" fill="#4D104A"/>
+      <rect x="95" y="125" width="10" height="10" fill="#4D104A"/>
+      <rect x="110" y="125" width="40" height="10" fill="#4D104A"/>
+      <rect x="110" y="140" width="10" height="10" fill="#4D104A"/>
+      <rect x="130" y="140" width="20" height="10" fill="#4D104A"/>
+    </svg>
+    <button class="modal-close" onclick="closeShare()">Done</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  function init() {
+    var panels = ['bladder','prostate','kidney'];
+    var activeCancer = 'bladder';
+
+    // Show a panel by name, hide all others
+    function showPanel(name) {
+      activeCancer = name;
+      panels.forEach(function(p) {
+        var el = document.getElementById('panel-' + p);
+        if (el) el.style.display = (p === name) ? 'block' : 'none';
+      });
+      // Update tab highlights
+      var tabs = document.querySelectorAll('.cancer-tab');
+      tabs.forEach(function(tab) {
+        if (tab.dataset.cancer === name) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+      buildSidebar(name);
+    }
+
+    // Wire up tab clicks
+    var tabs = document.querySelectorAll('.cancer-tab');
+    tabs.forEach(function(tab) {
+      tab.onclick = function() { showPanel(tab.dataset.cancer); };
+    });
+
+    // Collapse/expand sections
+    window.toggleSection = function(header) {
+      header.closest('.pathway-section').classList.toggle('collapsed');
+    };
+
+    // Sidebar sections map
+    var sidebarSections = {
+      bladder: [
+        { id: 'sec-nmibc',        label: '🔬 NMIBC Care Pathway' },
+        { id: 'sec-cysto-preop',  label: '📋 Cystectomy: Pre-Op' },
+        { id: 'sec-cysto-intra',  label: '🩺 Cystectomy: Intraop' },
+        { id: 'sec-cysto-postop', label: '🏥 Cystectomy: Post-Op' },
+        { id: 'sec-cysto-surv',   label: '📅 Post-Cystectomy Surv.' }
+      ],
+      prostate: [
+        { id: 'sec-p-preop',    label: '📋 Preoperative Eval.' },
+        { id: 'sec-p-periop',   label: '🩺 Perioperative Care' },
+        { id: 'sec-p-postop',   label: '🏥 Postoperative Care' },
+        { id: 'sec-p-survival', label: '📅 Survivorship' },
+        { id: 'sec-p-psa',      label: '📊 PSA States' },
+        { id: 'sec-p-germline', label: '🧬 Germline Testing' },],
+      kidney: [
+        { id: 'sec-k-intake', label: '📋 Intake & Workup' },
+        { id: 'sec-k-preop',  label: '🩺 Pre-Operative' },
+        { id: 'sec-k-intra',  label: '🩺 Intraoperative' },
+        { id: 'sec-k-postop', label: '🏥 Post-Op Protocols' },
+        { id: 'sec-k-surv',   label: '📅 Post-Neph. Surv.' },
+        { id: 'sec-k-utuc',   label: '🔍 UTUC Follow-up' },
+        { id: 'sec-k-ivc',    label: '📋 RCC IVC Thrombectomy Policy' }
+      ]
+    };
+
+    function buildSidebar(cancer) {
+      var aside = document.getElementById('sidebar');
+      if (!aside) return;
+      aside.innerHTML = '<div class="sidebar-label">Pathways</div>';
+      var items = sidebarSections[cancer] || [];
+      items.forEach(function(item) {
+        var a = document.createElement('div');
+        a.className = 'sidebar-link';
+        a.textContent = item.label;
+        a.onclick = function() {
+          document.querySelectorAll('.sidebar-link').forEach(function(l) { l.classList.remove('active'); });
+          a.classList.add('active');
+          var el = document.getElementById(item.id);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+        aside.appendChild(a);
+      });
+    }
+
+    // Search
+    window.handleSearch = function() {
+      var q = document.getElementById('searchInput').value.toLowerCase().trim();
+      var sections = document.querySelectorAll('.pathway-section');
+      var noResults = document.getElementById('noResults');
+      if (!q) {
+        sections.forEach(function(s) { s.style.display = ''; });
+        if (noResults) noResults.style.display = 'none';
+        showPanel(activeCancer);
+        return;
+      }
+      // Show all panels while searching
+      panels.forEach(function(p) {
+        var el = document.getElementById('panel-' + p);
+        if (el) el.style.display = 'block';
+      });
+      var anyVisible = false;
+      sections.forEach(function(s) {
+        var match = s.textContent.toLowerCase().indexOf(q) !== -1;
+        s.style.display = match ? '' : 'none';
+        if (match) anyVisible = true;
+      });
+      if (noResults) noResults.style.display = anyVisible ? 'none' : 'block';
+    };
+
+    // Share modal
+    window.openShare = function() {
+      var m = document.querySelector('.modal-overlay');
+      if (m) m.classList.add('open');
+    };
+    window.closeShare = function() {
+      var m = document.querySelector('.modal-overlay');
+      if (m) m.classList.remove('open');
+    };
+
+    // Initialize: show bladder panel
+    showPanel('bladder');
+  }
+
+  // Run after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script><script>
+  let activeCancer = 'bladder';
+
+  function showPanel(cancer) {
+    activeCancer = cancer;
+    document.querySelectorAll('.cancer-panel').forEach(p => {
+      p.style.display = (p.id === 'panel-' + cancer) ? 'block' : 'none';
+    });
+    document.querySelectorAll('.cancer-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.cancer === cancer);
+    });
+    buildSidebar(cancer);
+  }
+
+  // ── CANCER TAB SWITCHING ──
+  document.querySelectorAll('.cancer-tab').forEach(tab => {
+    tab.addEventListener('click', () => showPanel(tab.dataset.cancer));
+  });
+
+  // Initialize first panel
+  showPanel('bladder');
+
+  // ── COLLAPSE / EXPAND ──
+  function toggleSection(header) {
+    header.closest('.pathway-section').classList.toggle('collapsed');
+  }
+
+  // ── SIDEBAR ──
+  const sidebarSections = {
+    bladder: [
+      { id: 'sec-nmibc', label: '🔬 NMIBC Care Pathway' },
+      { id: 'sec-cysto-preop', label: '📋 Cystectomy: Pre-Op' },
+      { id: 'sec-cysto-intra', label: '🩺 Cystectomy: Intraop' },
+      { id: 'sec-cysto-postop', label: '🏥 Cystectomy: Post-Op' },
+      { id: 'sec-cysto-surv', label: '📅 Post-Cystectomy Surv.' },
+    ],
+    prostate: [
+      { id: 'sec-p-preop', label: '📋 Preoperative Eval.' },
+      { id: 'sec-p-periop', label: '🩺 Perioperative Care' },
+      { id: 'sec-p-postop', label: '🏥 Postoperative Care' },
+      { id: 'sec-p-survival', label: '📅 Survivorship' },
+      { id: 'sec-p-psa', label: '📊 PSA States' },
+      { id: 'sec-p-germline', label: '🧬 Germline Testing' },
+    ],
+    kidney: [
+      { id: 'sec-k-intake', label: '📋 Intake & Workup' },
+      { id: 'sec-k-preop', label: '🩺 Pre-Operative' },
+      { id: 'sec-k-intra', label: '🩺 Intraoperative' },
+      { id: 'sec-k-postop', label: '🏥 Post-Op Protocols' },
+      { id: 'sec-k-surv', label: '📅 Post-Neph. Surv.' },
+      { id: 'sec-k-utuc', label: '🔍 UTUC Follow-up' },
+      { id: 'sec-k-ivc',  label: '📋 RCC IVC Thrombectomy Policy' },
+    ]
+  };
+
+  function buildSidebar(cancer) {
+    const aside = document.getElementById('sidebar');
+    aside.innerHTML = '<div class="sidebar-label">Pathways</div>';
+    (sidebarSections[cancer] || []).forEach(item => {
+      const a = document.createElement('div');
+      a.className = 'sidebar-link';
+      a.textContent = item.label;
+      a.onclick = () => {
+        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+        a.classList.add('active');
+        const el = document.getElementById(item.id);
+        if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      };
+      aside.appendChild(a);
+    });
+  }
+  // ── SEARCH ──
+  function handleSearch() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    const sections = document.querySelectorAll('.pathway-section');
+    let anyVisible = false;
+    if (!q) {
+      sections.forEach(s => { s.style.display = ''; });
+      document.getElementById('noResults').style.display = 'none';
+      showPanel(activeCancer);
+      return;
+    }
+    // Show all panels during search
+    document.querySelectorAll('.cancer-panel').forEach(p => p.style.display = 'block');
+    sections.forEach(s => {
+      const txt = s.textContent.toLowerCase();
+     
